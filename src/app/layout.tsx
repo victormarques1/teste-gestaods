@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Source_Sans_3 } from "next/font/google";
 
-import "./globals.css";
 import StyledComponentsRegistry from "./lib/registry";
 
 const inter = Source_Sans_3({ subsets: ["latin"] });

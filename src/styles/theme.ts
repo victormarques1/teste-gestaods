@@ -4,7 +4,9 @@ const theme = {
     light_blue: "rgba(237, 243, 252, 1)",
     purple: "rgba(79, 19, 104, 1)",
     red: "rgba(197, 37, 37, 1)",
-    grey: "rgba(232, 232, 232, 1)",
+    gray: "rgba(232, 232, 232, 1)",
+    background: "#F6F6F6",
+    white: "#fff",
   },
 };
 
