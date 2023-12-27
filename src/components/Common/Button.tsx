@@ -6,6 +6,12 @@ import theme from "../../styles/theme";
 
 interface ButtonProps extends SpaceProps {}
 
+export const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 10px;
+`;
+
 export const Button = styled.button<ButtonProps>`
   background-color: ${theme.colors.blue};
   color: ${theme.colors.white};
@@ -18,8 +24,8 @@ export const Button = styled.button<ButtonProps>`
   ${space}
 
   &:hover {
-    padding: 8px;
     cursor: pointer;
+    color: ${theme.colors.light_blue};
   }
 `;
 

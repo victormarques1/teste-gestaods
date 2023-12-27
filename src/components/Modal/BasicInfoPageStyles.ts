@@ -17,11 +17,6 @@ export const ImageContainer = styled.div`
   padding: 25px 0;
 `;
 
-export const LabelInput = styled.label`
-  font-size: 14px;
-  margin-bottom: 4px;
-`;
-
 export const FlexContainer = styled.div`
   display: flex;
   width: 100%;
@@ -50,10 +45,4 @@ export const TextArea = styled.textarea`
   &:focus {
     outline: none;
   }
-`;
-
-export const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  margin-right: 10px;
 `;

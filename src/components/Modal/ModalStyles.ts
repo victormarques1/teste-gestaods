@@ -15,6 +15,7 @@ export const ModalWrapper = styled.div`
   border-radius: 10px;
   overflow-x: hidden;
   overflow-y: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
 
   @media (max-width: 600px) {
     width: 90%;

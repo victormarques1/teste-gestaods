@@ -5,11 +5,11 @@ import photo from "../../../public/photo.png";
 import { Input } from "../Common/Input";
 import {
   BasicInfoContainer,
-  ButtonContainer,
   FlexContainer,
-  LabelInput,
   TextArea,
 } from "./BasicInfoPageStyles";
+import { ButtonContainer } from "../Common/Button";
+import { LabelInput } from "../Common/Label";
 import { Select } from "../Common/Select";
 import { Button } from "../Common/Button";
 
