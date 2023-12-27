@@ -5,7 +5,7 @@ import Image from "next/image";
 import "./globals.css";
 import { Container, TableContainer } from "./home-style";
 import logo from "../../public/logo.png";
-import SearchBar from "@/components/SearchBar";
+import SearchBar from "@/components/SearchBar/SearchBar";
 
 const Home = () => {
   return (
