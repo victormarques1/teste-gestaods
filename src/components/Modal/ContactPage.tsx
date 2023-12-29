@@ -45,7 +45,7 @@ const ContactPage = ({ onSave, basicInfo, onClose }: ContactPageProps) => {
     }
   };
 
-  //Salvar dados de Contato e fechar o Modal
+  //Salvar no localStorage e fechar o Modal
   const handleSave = () => {
     const newPatient: Patient = {
       id: new Date().toISOString(),
@@ -60,6 +60,10 @@ const ContactPage = ({ onSave, basicInfo, onClose }: ContactPageProps) => {
 
     onSave({ basicInfo, contact: newPatient.contact });
     onClose();
+
+    const storedPatients = JSON.parse(localStorage.getItem("patients") || "[]");
+    const updatedPatients = [...storedPatients, newPatient];
+    localStorage.setItem("patients", JSON.stringify(updatedPatients));
   };
 
   return (
