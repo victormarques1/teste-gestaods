@@ -14,8 +14,14 @@ import Modal from "../Modal/Modal";
 const SearchBar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleAdicionarClick = () => {
+  //Abrir o modal
+  const handleOpenModal = () => {
     setIsModalOpen(true);
+  };
+
+  //Fechar o modal
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -29,11 +35,13 @@ const SearchBar = () => {
           <Input placeholder="Pesquisar" />
           <SearchIcon size={20} />
         </InputContainer>
-        <Button onClick={handleAdicionarClick}>
+        <Button onClick={handleOpenModal}>
           <PlusIcon size={22} />
           Adicionar paciente
         </Button>
-        {isModalOpen && <Modal />}
+        {isModalOpen && (
+          <Modal isOpen={isModalOpen} onClose={handleCloseModal} />
+        )}
       </InputButtonContainer>
     </SearchBarContainer>
   );
