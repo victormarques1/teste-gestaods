@@ -15,6 +15,7 @@ import ActionModal from "../ActionsModal/ActionModal";
 const PatientTable = () => {
   const [patients, setPatients] = useState<Patient[]>([]);
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   useEffect(() => {
     // Receber os pacientes do localStorage
@@ -44,11 +45,26 @@ const PatientTable = () => {
   // Abrir o modal de ações para o paciente selecionado
   const handleOpenModal = (patient: Patient) => {
     setSelectedPatient(patient);
+    setIsDeleteModalOpen(true);
+  };
+
+  // Excluir o paciente do localStorage e da tabela
+  const handleDeleteModalConfirm = () => {
+    if (!selectedPatient) {
+      console.error("Nenhum paciente selecionado para exclusão.");
+      return;
+    }
+
+    const updatedPatients = patients.filter((p) => p.id !== selectedPatient.id);
+    localStorage.setItem("patients", JSON.stringify(updatedPatients));
+    setPatients(updatedPatients);
+    handleCloseModal();
   };
 
   // Fechar o modal
   const handleCloseModal = () => {
     setSelectedPatient(null);
+    setIsDeleteModalOpen(false);
   };
 
   return (
@@ -89,6 +105,7 @@ const PatientTable = () => {
           isOpen={true}
           onClose={handleCloseModal}
           patient={selectedPatient}
+          onDelete={handleDeleteModalConfirm}
         />
       )}
     </TableContainer>
