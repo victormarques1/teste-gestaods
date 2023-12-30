@@ -13,6 +13,23 @@ export const patientController = {
     }
   },
 
+  getPatientById: async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    try {
+      const patient = await Patient.findById(id);
+
+      if (!patient) {
+        return res.status(404).json({ error: "Paciente não encontrado" });
+      }
+
+      res.status(200).json(patient);
+    } catch (error) {
+      console.error("Erro ao obter paciente pelo ID:", error);
+      res.status(500).json({ error: "Erro interno do servidor" });
+    }
+  },
+
   addPatient: async (req: Request, res: Response) => {
     try {
       const { basicInfo, contact } = req.body;
