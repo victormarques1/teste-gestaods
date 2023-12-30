@@ -9,17 +9,17 @@ import {
 } from "./SearchBarStyles";
 import { InputContainer, Input, SearchIcon } from "./SearchInput";
 import { Button, PlusIcon } from "../Common/Button";
-import Modal from "../Modal/Modal";
+import Modal from "../PatientModal/Modal";
 
 const SearchBar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  //Abrir o modal
+  // Abrir o modal
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
 
-  //Fechar o modal
+  // Fechar o modal
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };

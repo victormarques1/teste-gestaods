@@ -21,7 +21,7 @@ const Home = () => {
 
       <TableContainer>
         <SearchBar />
-        <PatientTable patients={patients} />
+        <PatientTable />
       </TableContainer>
     </Container>
   );
