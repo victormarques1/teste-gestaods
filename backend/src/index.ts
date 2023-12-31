@@ -1,8 +1,11 @@
 import express from "express";
+import dotenv from "dotenv";
 import cors from "cors";
 import bodyParser from "body-parser";
 import { connectToDatabase } from "./database/mongoose.db";
 import patientRouter from "./routes/patient.routes";
+
+dotenv.config();
 
 const app = express();
 

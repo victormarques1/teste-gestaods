@@ -1,11 +1,8 @@
 import mongoose from "mongoose";
 
-const MONGODB_URI =
-  "mongodb+srv://teste-database:gestaods@testegestaodscluster.b8kk862.mongodb.net/";
-
 export const connectToDatabase = async () => {
   try {
-    await mongoose.connect(MONGODB_URI);
+    await mongoose.connect(`${process.env.MONGODB_URI}`);
     const connection = mongoose.connection;
 
     connection.on("connected", () => {
