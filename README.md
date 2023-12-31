@@ -51,7 +51,7 @@ Para rodar o backend execute o comando:
 npm start
 ```
 
-Abra um terminal para rodar a o frontend:
+Abra um outro terminal separado para rodar a o frontend:
 
 ```
 cd teste-gestaods 
