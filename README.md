@@ -27,15 +27,15 @@ MONGODB_URI=sua_uri_do_mongodb
 Configure seu cluster MongoDB:
 ```
 Crie uma conta ou faça login em https://www.mongodb.com/
-Crie um novo cluster (selecione a opção gratuita: M0)
+Crie um novo cluster (selecione a opção gratuita: M0) e defina uma senha de acesso.
 Obtenha a URI de conexão do seu cluster.
 ```
 
 Adicione a URI do seu cluster MongoDB no seu arquivo .env:
 
 ```
-Coloque a URI do seu cluster MongoDB no arquivo .env criado.
-ex: MONGODB_URI=sua_uri_do_mongodb
+Coloque a URI do seu cluster MongoDB no arquivo .env criado. (certifique-se de substituir <password> pela sua senha criada)
+ex: MONGODB_URI=mongodb+srv://teste:<sua-senha>@testegestaodscluster...
 ```
 
 Abra um terminal para rodar o backend: 
