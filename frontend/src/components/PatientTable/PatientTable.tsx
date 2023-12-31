@@ -51,16 +51,21 @@ const PatientTable = () => {
 
   // Excluir o paciente da API e da tabela
   const handleDeleteModalConfirm = async () => {
+    console.log("Selected Patient:", selectedPatient);
+
     if (!selectedPatient) {
       console.error("Nenhum paciente selecionado para exclusão.");
       return;
     }
 
     try {
-      await axios.delete(`/patients/${selectedPatient.id}`);
+      await axios.delete(
+        `http://localhost:3333/patients/${selectedPatient._id}`
+      );
+
       // Atualizar a lista de pacientes após a exclusão
       const updatedPatients = patients.filter(
-        (p) => p.id !== selectedPatient.id
+        (p) => p._id !== selectedPatient._id
       );
       setPatients(updatedPatients);
       handleCloseModal();
@@ -90,7 +95,7 @@ const PatientTable = () => {
         </thead>
         <tbody>
           {patients.map((patient) => (
-            <tr key={patient.id}>
+            <tr key={patient._id}>
               <TableData color={theme.colors.blue}>
                 {patient.basicInfo.name}
               </TableData>
