@@ -1,6 +1,4 @@
-// DeleteConfirmationModal.tsx
 import Image from "next/image";
-import React from "react";
 import deleteImage from "../../../public/delete-image.png";
 import {
   BodyContainer,

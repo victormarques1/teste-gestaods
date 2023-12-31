@@ -11,6 +11,7 @@ import {
 import { MdMoreHoriz } from "react-icons/md";
 import theme from "@/styles/theme";
 import ActionModal from "../ActionsModal/ActionModal";
+import Swal from "sweetalert2";
 
 const PatientTable = () => {
   const [patients, setPatients] = useState<Patient[]>([]);
@@ -51,8 +52,6 @@ const PatientTable = () => {
 
   // Excluir o paciente da API e da tabela
   const handleDeleteModalConfirm = async () => {
-    console.log("Selected Patient:", selectedPatient);
-
     if (!selectedPatient) {
       console.error("Nenhum paciente selecionado para exclusão.");
       return;
@@ -62,6 +61,8 @@ const PatientTable = () => {
       await axios.delete(
         `http://localhost:3333/patients/${selectedPatient._id}`
       );
+
+      Swal.fire("Paciente deletado!", "", "success");
 
       // Atualizar a lista de pacientes após a exclusão
       const updatedPatients = patients.filter(

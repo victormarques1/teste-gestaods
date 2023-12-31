@@ -3,9 +3,11 @@ import { color } from "styled-system";
 import theme from "@/styles/theme";
 
 export const TableContainer = styled.div`
+  overflow-x: auto;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0 4px;
 `;
 
 export const StyledTable = styled.table`

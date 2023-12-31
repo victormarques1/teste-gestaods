@@ -3,17 +3,20 @@ import BasicInfoPage from "./BasicInfoPage";
 import ContactPage from "./ContactPage";
 import { ModalWrapper, Navbar } from "./ModalStyles";
 import { MenuButton } from "./MenuButton";
-import { BasicInfo, Contact, Patient } from "@/types/types";
+import { BasicInfo, Patient } from "@/types/types";
 
 interface ModalProps {
+  isOpen: boolean;
   onClose: () => void;
+  isEditMode: boolean;
+  patient?: Patient;
 }
 
-const Modal = ({ onClose }: ModalProps) => {
+const Modal = ({ onClose, isEditMode, patient, isOpen }: ModalProps) => {
   const [currentPage, setCurrentPage] = useState<"basicInfo" | "contact">(
     "basicInfo"
   );
-  const [currentStep, setCurrentStep] = useState(1);
+  const [editMode, setEditMode] = useState(isEditMode);
   const [basicInfo, setBasicInfo] = useState<BasicInfo>({
     name: "",
     nickname: "",
@@ -34,6 +37,7 @@ const Modal = ({ onClose }: ModalProps) => {
   const handleSaveBasicInfo = (basicInfo: BasicInfo) => {
     setBasicInfo(basicInfo);
     goToContactPage();
+    setEditMode(isEditMode);
   };
 
   return (
@@ -54,13 +58,20 @@ const Modal = ({ onClose }: ModalProps) => {
       </Navbar>
 
       {currentPage === "basicInfo" && (
-        <BasicInfoPage onSave={handleSaveBasicInfo} onNext={goToContactPage} />
+        <BasicInfoPage
+          onSave={handleSaveBasicInfo}
+          onNext={goToContactPage}
+          isEditMode={editMode}
+          initialValues={editMode ? patient?.basicInfo : undefined}
+        />
       )}
       {currentPage === "contact" && (
         <ContactPage
-          onSave={() => onClose()}
+          onSave={() => onClose}
           basicInfo={basicInfo}
           onClose={onClose}
+          isEditMode={editMode}
+          initialValues={editMode ? patient : undefined}
         />
       )}
     </ModalWrapper>

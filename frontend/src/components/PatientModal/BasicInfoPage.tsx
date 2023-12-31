@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 import photo from "../../../public/photo.png";
@@ -19,9 +19,16 @@ import Swal from "sweetalert2";
 interface BasicInfoPageProps {
   onSave: (basicInfo: BasicInfo) => void;
   onNext: () => void;
+  isEditMode: boolean;
+  initialValues?: BasicInfo;
 }
 
-const BasicInfoPage = ({ onSave, onNext }: BasicInfoPageProps) => {
+const BasicInfoPage = ({
+  onSave,
+  onNext,
+  isEditMode,
+  initialValues,
+}: BasicInfoPageProps) => {
   const genderOptions = ["Sem Filtro", "Masculino", "Feminino", "Outro"];
   const maritalStatusOptions = [
     "Sem Filtro",
@@ -37,11 +44,23 @@ const BasicInfoPage = ({ onSave, onNext }: BasicInfoPageProps) => {
     nationality: "",
     birthDate: "",
     cpf: "",
-    rg: "",
+    rg: Number(""),
     gender: "",
     maritalStatus: "",
     addObservations: "",
   });
+
+  useEffect(() => {
+    // Preencher os campos com os valores do paciente selecionado em caso de edição
+    if (isEditMode && initialValues) {
+      setBasicInfo({
+        ...initialValues,
+        birthDate: new Date(initialValues.birthDate)
+          .toISOString()
+          .split("T")[0],
+      });
+    }
+  }, [isEditMode, initialValues]);
 
   //Salvar os dados básicos e avançar para próxima página
   const handleNext = () => {
@@ -65,7 +84,7 @@ const BasicInfoPage = ({ onSave, onNext }: BasicInfoPageProps) => {
     onSave({
       ...basicInfo,
       birthDate: new Date(basicInfo.birthDate), //Convertendo para o tipo Date
-      rg: parseInt(basicInfo.rg), // Convertendo para o tipo number
+      rg: Number(basicInfo.rg), // Convertendo para o tipo number
     });
 
     onNext();
@@ -140,7 +159,9 @@ const BasicInfoPage = ({ onSave, onNext }: BasicInfoPageProps) => {
           <Input
             placeholder="Digite"
             value={basicInfo.rg}
-            onChange={(e) => setBasicInfo({ ...basicInfo, rg: e.target.value })}
+            onChange={(e) =>
+              setBasicInfo({ ...basicInfo, rg: Number(e.target.value) })
+            }
           />
         </BasicInfoContainer>
       </FlexContainer>

@@ -1,10 +1,8 @@
-// components/Common/SearchInput.tsx
 import styled from "styled-components";
 import { IoSearch } from "react-icons/io5";
 
 import theme from "../../styles/theme";
 
-//adptar ícone dentro do input
 export const InputContainer = styled.div`
   position: relative;
 `;

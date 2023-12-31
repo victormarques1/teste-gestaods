@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Button, ButtonContainer } from "../Common/Button";
 import { Input } from "../Common/Input";
@@ -12,9 +12,18 @@ interface ContactPageProps {
   onSave: () => void;
   onClose: () => void;
   basicInfo: BasicInfo;
+  isEditMode: boolean;
+  initialValues?: Patient;
 }
 
-const ContactPage = ({ onSave, basicInfo, onClose }: ContactPageProps) => {
+const ContactPage = ({
+  onSave,
+  basicInfo,
+  onClose,
+  initialValues,
+  isEditMode,
+}: ContactPageProps) => {
+  const [patients, setPatients] = useState<Patient[]>([]);
   const [contact, setContact] = useState<Contact>({
     cep: "",
     city: "",
@@ -24,6 +33,7 @@ const ContactPage = ({ onSave, basicInfo, onClose }: ContactPageProps) => {
     neighborhood: "",
     complement: "",
   });
+  const [patientToEdit, setPatientToEdit] = useState<Patient | null>(null);
 
   // Lidar com a busca de CEP pela API ViaCEP
   const handleCepChange = async (newCep: string) => {
@@ -67,7 +77,15 @@ const ContactPage = ({ onSave, basicInfo, onClose }: ContactPageProps) => {
     }
   };
 
-  //Salvar paciente na tabela e fechar o modal
+  useEffect(() => {
+    // Preencher os campos com os valores do paciente selecionado em caso de edição
+    if (isEditMode && initialValues) {
+      setContact(initialValues.contact);
+      setPatientToEdit(initialValues);
+    }
+  }, [isEditMode, initialValues]);
+
+  //Salvar paciente na tabela após adicionar ou editar
   const handleSave = async () => {
     if (!contact.cep) {
       Swal.fire({
@@ -84,13 +102,35 @@ const ContactPage = ({ onSave, basicInfo, onClose }: ContactPageProps) => {
     };
 
     try {
-      const response = await axios.post(
-        "http://localhost:3333/patients",
-        newPatient
-      );
-      const savedPatient = response.data;
+      // Modo editar: Editar paciente selecionado
+      if (isEditMode && patientToEdit) {
+        const updatedPatient = await axios.put(
+          `http://localhost:3333/patients/${patientToEdit._id}`,
+          newPatient
+        );
 
-      Swal.fire("Paciente adicionado com sucesso!", "", "success");
+        setPatients((prevPatients) =>
+          prevPatients.map((p) =>
+            p._id === updatedPatient.data._id ? updatedPatient.data : p
+          )
+        );
+        window.location.reload();
+
+        setPatientToEdit(updatedPatient.data);
+      } else {
+        // Modo de criação: Criar um novo paciente
+        const response = await axios.post(
+          "http://localhost:3333/patients",
+          newPatient
+        );
+
+        setPatients((prevPatients) =>
+          prevPatients.map((p) =>
+            p._id === response.data._id ? response.data : p
+          )
+        );
+        window.location.reload();
+      }
       onSave();
       onClose();
     } catch (error) {
